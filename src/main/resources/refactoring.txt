@@ -1,0 +1,41 @@
+1. Выполнен Extract Method
+
+2. Выполнен Extract Class. Добавлен класс BoxGame.
+    добавлен package 'game'.
+
+3. Выполнен Remove Consolidate .
+    в части кода
+    https://github.com/goitProjects/java-dev-homework-module-14-code-quality/blob/6cd5424dd00c1f94f77eb15af34b58a6ac898cfb/src/main/java/App.java#L81C16-L81C17if ((box[0] == 'O' && box[1] == 'O' && box[2] == 'O') || (box[3] == 'O' && box[4] == 'O' && box[5] == 'O') || (box[6] == 'O' && box[7] == 'O' && box[8] == 'O') ||
+    https://github.com/goitProjects/java-dev-homework-module-14-code-quality/blob/6cd5424dd00c1f94f77eb15af34b58a6ac898cfb/src/main/java/App.java#L53
+    выполняется проверка на результат игры и записывается в переменную,
+    потом только при следующей итерации цикла выполняется еще одна проверка по переменной
+    https://github.com/goitProjects/java-dev-homework-module-14-code-quality/blob/6cd5424dd00c1f94f77eb15af34b58a6ac898cfb/src/main/java/App.java#L28
+    и игра прекращается.
+    Это можно объединить в один метод, не выполняя 2 проверки с одним результатом
+
+4. Methods Duplication. Mожно добавить переменные char X,O, что дает возможность быстро изменить символы при
+    необходимости,передавать их в метод на проверку выиграша, не дублируя код
+    https://github.com/goitProjects/java-dev-homework-module-14-code-quality/blob/6cd5424dd00c1f94f77eb15af34b58a6ac898cfb/src/main/java/App.java#L53
+
+5. По читабельности кода:
+    замена: line 14:  char box[] -> char [] box;
+    добавлены пробелы, например, if(!boxEmpty); if(boxAvailable == false); for(i=0; i<9; i++);
+    https://github.com/goitProjects/java-dev-homework-module-14-code-quality/blob/6cd5424dd00c1f94f77eb15af34b58a6ac898cfb/src/main/java/App.java#L53
+      лучше сделать разделение по строкам для лучшей читабельности
+
+6. По ошибкам функционала:
+    не обработано исключение если не цифра;
+    Scan не закрыт;
+    не корректная проверка на ничью, если оба закрыли лини.
+
+7. Лишний код:
+    https://github.com/goitProjects/java-dev-homework-module-14-code-quality/blob/6cd5424dd00c1f94f77eb15af34b58a6ac898cfb/src/main/java/App.java#L22
+    не несет никакого функционала с переменной boxEmpty
+8. Нет файла .gitignore
+
+
+
+
+
+
+
