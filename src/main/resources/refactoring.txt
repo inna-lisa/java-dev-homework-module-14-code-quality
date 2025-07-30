@@ -13,7 +13,7 @@
     и игра прекращается.
     Это можно объединить в один метод, не выполняя 2 проверки с одним результатом
 
-4. Methods Duplication. Mожно добавить переменные char X,O, что дает возможность быстро изменить символы при
+4. Methods Duplication. Добавлены переменные char X,O, что дает возможность быстро изменить символы при
     необходимости,передавать их в метод на проверку выиграша, не дублируя код
     https://github.com/goitProjects/java-dev-homework-module-14-code-quality/blob/6cd5424dd00c1f94f77eb15af34b58a6ac898cfb/src/main/java/App.java#L53
 
@@ -31,6 +31,7 @@
 7. Лишний код:
     https://github.com/goitProjects/java-dev-homework-module-14-code-quality/blob/6cd5424dd00c1f94f77eb15af34b58a6ac898cfb/src/main/java/App.java#L22
     не несет никакого функционала с переменной boxEmpty
+
 8. Нет файла .gitignore
 
 
