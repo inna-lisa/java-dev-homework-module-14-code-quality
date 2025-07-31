@@ -1,56 +1,45 @@
 package game;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class BoxGame {
-	private final char[] box = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
-	private static final char playerX = 'X';
-	private static final char playerO = 'O';
-	Scanner scan = new Scanner(System.in);
+	private static final char[] BOX = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
+	private static final char PLAYER_X = 'X';
+	private static final char PLAYER_O = 'O';
+	private static final Scanner SCAN = new Scanner(System.in);
+
+	private BoxGame() {
+	}
 
 	public static void run() {
 		System.out.println("Enter box number to select. Enjoy!\n");
-		BoxGame boxGame = new BoxGame();
 
 		while (true) {
-			boxGame.printBox();
-			if (boxGame.isWin()) {
+			BoxGame.printBox();
+			if (BoxGame.isWin()) {
 				break;
 			}
-			boxGame.playersMove();
+			BoxGame.playersMove();
 		}
-		boxGame.scan.close();
+		BoxGame.SCAN.close();
 	}
 
-	private void printBox() {
-		System.out.println("\n\n " + box[0] + " | " + box[1] + " | " + box[2] + " ");
+	private static void printBox() {
+		System.out.println("\n\n " + BOX[0] + " | " + BOX[1] + " | " + BOX[2] + " ");
 		System.out.println("-----------");
-		System.out.println(" " + box[3] + " | " + box[4] + " | " + box[5] + " ");
+		System.out.println(" " + BOX[3] + " | " + BOX[4] + " | " + BOX[5] + " ");
 		System.out.println("-----------");
-		System.out.println(" " + box[6] + " | " + box[7] + " | " + box[8] + " \n");
+		System.out.println(" " + BOX[6] + " | " + BOX[7] + " | " + BOX[8] + " \n");
 	}
 
-	private boolean isWin() {
-		if ((box[0] == playerX && box[1] == playerX && box[2] == playerX)
-				|| (box[3] == playerX && box[4] == playerX && box[5] == playerX)
-				|| (box[6] == playerX && box[7] == playerX && box[8] == playerX)
-				|| (box[0] == playerX && box[3] == playerX && box[6] == playerX)
-				|| (box[1] == playerX && box[4] == playerX && box[7] == playerX)
-				|| (box[2] == playerX && box[5] == playerX && box[8] == playerX)
-				|| (box[0] == playerX && box[4] == playerX && box[8] == playerX)
-				|| (box[2] == playerX && box[4] == playerX && box[6] == playerX)) {
+	private static boolean isWin() {
+		if (ifIsWin(PLAYER_X)) {
 			System.out.println("You won the game!\nCreated by Shreyas Saha. Thanks for playing!");
 			return true;
 		}
 
-		if ((box[0] == playerO && box[1] == playerO && box[2] == playerO)
-				|| (box[3] == playerO && box[4] == playerO && box[5] == playerO)
-				|| (box[6] == playerO && box[7] == playerO && box[8] == playerO)
-				|| (box[0] == playerO && box[3] == playerO && box[6] == playerO)
-				|| (box[1] == playerO && box[4] == playerO && box[7] == playerO)
-				|| (box[2] == playerO && box[5] == playerO && box[8] == playerO)
-				|| (box[0] == playerO && box[4] == playerO && box[8] == playerO)
-				|| (box[2] == playerO && box[4] == playerO && box[6] == playerO)) {
+		if (ifIsWin(PLAYER_O)) {
 			System.out.println("You lost the game!\nCreated by Shreyas Saha. Thanks for playing!");
 			return true;
 		}
@@ -62,42 +51,54 @@ public class BoxGame {
 		return false;
 	}
 
-	private void playersMove() {
-  byte input;
+	private static boolean ifIsWin(char player){
+		return (BOX[0] == player && BOX[1] == player && BOX[2] == player)
+				|| (BOX[3] == player && BOX[4] == player && BOX[5] == player)
+				|| (BOX[6] == player && BOX[7] == player && BOX[8] == player)
+				|| (BOX[0] == player && BOX[3] == player && BOX[6] == player)
+				|| (BOX[1] == player && BOX[4] == player && BOX[7] == player)
+				|| (BOX[2] == player && BOX[5] == player && BOX[8] == player)
+				|| (BOX[0] == player && BOX[4] == player && BOX[8] == player)
+				|| (BOX[2] == player && BOX[4] == player && BOX[6] == player);
+	}
+
+	private static void playersMove() {
+		int input = 0;
 		while (true) {
-			input = scan.nextByte();
+			try {
+				input = SCAN.nextInt();
+			} catch (InputMismatchException ex) {
+				System.out.println("Invalid input. Enter from 1 to 9");
+				SCAN.next();
+			}
 			if (input > 0 && input < 10) {
-				if (box[input - 1] == playerX || box[input - 1] == playerO)
+				if (BOX[input - 1] == PLAYER_X || BOX[input - 1] == PLAYER_O)
 					System.out.println("That one is already in use. Enter another.");
 				else {
-					box[input - 1] = playerX;
+					BOX[input - 1] = PLAYER_X;
 					break;
 				}
 			} else
 				System.out.println("Invalid input. Enter again.");
 		}
 		if (isBoxAvailable()) {
-			byte rand;
 			while (true) {
-				rand = (byte) (Math.random() * (9 - 1 + 1) + 1);
-				if (box[rand - 1] != playerX && box[rand - 1] != playerO) {
-					box[rand - 1] = playerO;
+				byte rand = (byte) (Math.random() * (9 - 1 + 1) + 1);
+				if (BOX[rand - 1] != PLAYER_X && BOX[rand - 1] != PLAYER_O) {
+					BOX[rand - 1] = PLAYER_O;
 					break;
 				}
 			}
 		}
 	}
-
-	private boolean isBoxAvailable() {
-		byte i;
-		boolean boxAvailable = false;
-		for (i = 0; i < 9; i++) {
-			if (box[i] != playerX && box[i] != playerO) {
-				boxAvailable = true;
-				break;
+	
+	private static boolean isBoxAvailable() {
+		for (int i = 0; i < 9; i++) {
+			if (BOX[i] != PLAYER_X && BOX[i] != PLAYER_O) {
+				return true;
 			}
 		}
-		return boxAvailable;
+		return false;
 	}
 }
 
